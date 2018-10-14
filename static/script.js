@@ -18,7 +18,8 @@ var cy = window.cy = cytoscape({
       selector: 'node',
       style: {
         'background-color': '#ad1a66',
-        'label': 'data(label)'
+        'label': 'data(label)',
+        'font-size': '14px'
       }
     },
 
@@ -28,7 +29,9 @@ var cy = window.cy = cytoscape({
         'width': 3,
         'target-arrow-shape': 'triangle',
         'line-color': '#ad1a66',
-				'label': 'data(label)'
+				'label': 'data(label)',
+        'color': '#c00',
+        'font-size': '8px'
       }
     }
   ],

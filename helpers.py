@@ -4,7 +4,7 @@ import tempfile
 import json
 
 
-def get_ontology(objects_url, rships_url):
+def get_ontology(objects_url, rships_url, filtered_ids=["49"]):
     ontology = []
     objects = get_google_sheet(objects_url)
     rships = get_google_sheet(rships_url)
@@ -13,6 +13,7 @@ def get_ontology(objects_url, rships_url):
         props["id"] = str(i)
         ontology.append({
             "group": "nodes",
+            "classes": ["graph_node"],
             "data": props
             })
     for i in rships:
@@ -22,9 +23,26 @@ def get_ontology(objects_url, rships_url):
         rship["target"] = str(rship["target"])
         ontology.append({
             "group": "edges",
+            "classes": ["graph_edge"],
             "data": rship
             })
-    return ontology
+    return filter_ontology(ontology, filtered_ids)
+
+
+def filter_ontology(ontology, desired_nodes):
+    accepted_ids = set()
+    for node_id in desired_nodes:
+        for obj in ontology:
+            if obj["group"] == "edges":
+                if node_id in [obj["data"]["source"], obj["data"]["target"]]:
+                    accepted_ids.add(obj["data"]["id"])
+                    accepted_ids.add(obj["data"]["source"])
+                    accepted_ids.add(obj["data"]["target"])
+    modified_ontology = []
+    for obj in ontology:
+        if obj["data"]["id"] in accepted_ids:
+            modified_ontology.append(obj)
+    return modified_ontology
 
 
 def get_google_sheet(url):
