@@ -1,14 +1,30 @@
 import requests
 import pandas as pd
 import tempfile
+import json
 
 
 def get_ontology(objects_url, rships_url):
-    data = {
-            "objects": get_google_sheet(objects_url),
-            "relationships": get_google_sheet(rships_url)
-            }
-    return data
+    ontology = []
+    objects = get_google_sheet(objects_url)
+    rships = get_google_sheet(rships_url)
+    for i in objects:
+        props = json.loads(objects[i]["properties"])
+        props["id"] = str(i)
+        ontology.append({
+            "group": "nodes",
+            "data": props
+            })
+    for i in rships:
+        rship = rships[i]
+        rship["id"] = str(i)
+        rship["source"] = str(rship["source"])
+        rship["target"] = str(rship["target"])
+        ontology.append({
+            "group": "edges",
+            "data": rship
+            })
+    return ontology
 
 
 def get_google_sheet(url):

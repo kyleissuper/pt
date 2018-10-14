@@ -2,8 +2,7 @@
 <html lang="en">
   <head>
     <title>Kyle Tan - PT Project</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="{{ url_for('static', filename='script.min.js') }}?{{ range(1, 99999) | random }}"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
   </head>
   <body>
     <section id="container">
@@ -27,5 +26,10 @@
         font-size: 1em;
       }
     </style>
+    <script>
+      const ontology = {{ ontology|tojson }};
+    </script>
+    <script src="{{ url_for('static', filename='cytoscape.min.js') }}?{{ range(1, 99999) | random }}"></script>
+    <script src="{{ url_for('static', filename='script.min.js') }}?{{ range(1, 99999) | random }}"></script>
   </body>
 </html>

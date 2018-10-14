@@ -20,7 +20,7 @@ def make_session_permanent():
 
 @app.route("/")
 def home():
-    return render_template("home.html", data=ontology)
+    return render_template("home.html", ontology=ontology)
 
 
 http_server = WSGIServer(("", settings.PORT), app)
