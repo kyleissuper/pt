@@ -4,9 +4,23 @@
     <title>Kyle Tan - PT Project</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?{{ range(1, 99999) | random }}">
+    <link href="https://fonts.googleapis.com/css?family=Krub" rel="stylesheet">
+    <script src="{{ url_for('static', filename='cytoscape.min.js') }}?{{ range(1, 99999) | random }}"></script>
   </head>
   <body>
     <section id="container">
+      <!--form>
+        <select name="field">
+          <option value="label">Search labels</option>
+          <option value="all">Search everything</option>
+          <option value="company_size">Search company sizes</option>
+          <option value="city">Search cities</option>
+        </select>
+        <input name="search_string" type="text">
+        <input type="submit">
+      </form-->
+      <h1><a href="/">Customer service management analytics demo</a></h1>
+      <h3 id="query"></h3>
       <div id="cy"></div>
       <table id="describer">
         <tr>
@@ -22,7 +36,6 @@
     <script>
       const ontology = {{ ontology|tojson }};
     </script>
-    <script src="{{ url_for('static', filename='cytoscape.min.js') }}?{{ range(1, 99999) | random }}"></script>
     <script src="{{ url_for('static', filename='script.min.js') }}?{{ range(1, 99999) | random }}"></script>
   </body>
 </html>

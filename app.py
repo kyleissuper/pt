@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session
+from flask import Flask, render_template, session, request
 from gevent.pywsgi import WSGIServer
 import helpers as helpers
 import settings as settings
@@ -20,7 +20,11 @@ def make_session_permanent():
 
 @app.route("/")
 def home():
-    return render_template("home.html", ontology=ontology)
+    if "q" in request.args and request.args["q"] != "":
+        filtered = helpers.search(ontology, request.args["search_by"], request.args["q"])
+    else:
+        filtered = helpers.search(ontology, "label", "Southeast Asia")
+    return render_template("home.html", ontology=filtered)
 
 
 http_server = WSGIServer(("", settings.PORT), app)

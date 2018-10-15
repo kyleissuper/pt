@@ -1,0 +1,59 @@
+body {
+  overflow-x: hidden;
+  font-family: 'Krub', sans-serif;
+  font-size: 14px;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #edf0f2;
+}
+#container {
+  background: #fffeff;
+  position: absolute;
+  min-height: 100%;
+  padding: 20px 30px 100px 30px;
+  box-sizing: border-box;
+}
+@media (min-width: 800px) {
+  #container {
+    width: 800px;
+    left: 50%;
+    margin-left: -400px;
+  }
+}
+@media (max-width: 799px) {
+  #container {
+    width: 100%;
+    left: 0;
+  }
+}
+form {
+  padding: 40px;
+  background: #10273b;
+}
+#describer {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+#describer td {
+  padding: 5px 15px;
+}
+#describer tr td:first-child {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+#cy {
+  margin: 15px 0;
+  width: 100%;
+  min-height: 200px;
+}
+.__________cytoscape_container {
+}
+.graph_node {
+  font-size: 14px;
+}
+.graph_edge {
+  font-size: 10px;
+}

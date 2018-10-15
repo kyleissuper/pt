@@ -4,7 +4,7 @@ import tempfile
 import json
 
 
-def get_ontology(objects_url, rships_url, filtered_ids=["49"]):
+def get_ontology(objects_url, rships_url):
     ontology = []
     objects = get_google_sheet(objects_url)
     rships = get_google_sheet(rships_url)
@@ -26,14 +26,30 @@ def get_ontology(objects_url, rships_url, filtered_ids=["49"]):
             "classes": ["graph_edge"],
             "data": rship
             })
-    return filter_ontology(ontology, filtered_ids)
+    return ontology
 
 
-def filter_ontology(ontology, desired_nodes):
+def search(ontology, field, q):
+    filtered = set()
+    for record in ontology:
+        if record["group"] == "edges":
+            continue
+        if field == "all":
+            for k in record["data"]:
+                if record["data"][k].lower() == q.lower():
+                    filtered.add(record["data"]["id"])
+        else:
+            if field in record["data"] and record["data"][field].lower() == q.lower():
+                filtered.add(record["data"]["id"])
+    return filter_ontology_by_ids(ontology, list(filtered))
+
+
+def filter_ontology_by_ids(ontology, desired_nodes):
     accepted_ids = set()
     for node_id in desired_nodes:
         for obj in ontology:
             if obj["group"] == "edges":
+                # if node_id == obj["data"]["source"]:
                 if node_id in [obj["data"]["source"], obj["data"]["target"]]:
                     accepted_ids.add(obj["data"]["id"])
                     accepted_ids.add(obj["data"]["source"])
