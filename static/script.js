@@ -106,9 +106,26 @@ let queryHeadingString = "";
 let queryString = window.location.href.split("/").pop();
 if (queryString[0] == "?") {
   let queryLabel = queryString.split("&")[0].split("=")[1];
-  let queryValue = queryString.split("&")[1].split("=")[1].replace("%20", " ");
+  let queryValue = queryString.split("&")[1].split("=")[1].replace(/%20/g, " ");
   queryHeadingString = "Searched for " + queryLabel + "='" + queryValue + "'";
 } else {
-  queryHeadingString = "Searched for all results";
+  queryHeadingString = "Searched for label='Southeast Asia'";
 }
 document.querySelector("#query").innerHTML = queryHeadingString;
+
+
+const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
+
+
+document.querySelector("#share").addEventListener("click", (evt) => {
+  evt.preventDefault();
+  copyToClipboard(window.location.href);
+  alertify.log("Copied URL to clipboard");
+});

@@ -4,8 +4,10 @@
     <title>Kyle Tan - PT Project</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?{{ range(1, 99999) | random }}">
-    <link href="https://fonts.googleapis.com/css?family=Krub" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='alertify.core.css') }}?{{ range(1, 99999) | random }}">
+    <link href="https://fonts.googleapis.com/css?family=Krub:400,700" rel="stylesheet">
     <script src="{{ url_for('static', filename='cytoscape.min.js') }}?{{ range(1, 99999) | random }}"></script>
+    <script src="{{ url_for('static', filename='alertify.min.js') }}?{{ range(1, 99999) | random }}"></script>
   </head>
   <body>
     <section id="container">
@@ -32,6 +34,41 @@
           <td>-</td>
         </tr>
       </table>
+      <p>&nbsp;</p>
+      <p>
+      <a href="#" id="share">Share this analysis</a>
+      </p>
+      <p>
+      See the source data: <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRDjYuiffPJjPReUeitCSQ5_hk2AEeje3EFTtULHxNvmmg_ptsX741rIS_yg_88VwjOuueXl2WJSBs7/pub" target="_blank" rel="noopener noreferrer">Google Sheets</a>
+      </p>
+      <p>
+      Made with &hearts; by <a href="https://kyletan.me/" target="_blank" rel="noopener noreferrer">Kyle Tan</a>
+      </p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <hr>
+      <h1>What is this web app?</h1>
+      <p>
+      This is a (very buggy!) hands on thought experiment about how analytical infrastracture could be valuable from a customer service manager's perspective, hacked together over two days.
+      </p>
+      <p>
+      We begin with a hypothetical dataset that I've <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRDjYuiffPJjPReUeitCSQ5_hk2AEeje3EFTtULHxNvmmg_ptsX741rIS_yg_88VwjOuueXl2WJSBs7/pub" target="_blank" rel="noopener noreferrer">hosted publicly on Google Sheets</a>.
+      </p>
+      <h2>Some key features include:</h2>
+      <ul>
+        <li><b>Integration</b>: the data visualized comes from Google Sheets, and could easily be replaced with another dataset so long as it follows the same object/property/relationship model.</li>
+        <li><b>Drill down analysis</b>: click on any node in the graph to see its properties, and click on property values to update the graph.</li>
+        <li><b>Sharing</b>: click the "Share this analysis" link to copy the current graph's URL to your clipboard.</li>
+      </ul>
+      <h2>Possible example insights:</h2>
+      <ul>
+        <li><a href="https://pt.kyletan.me/?search_by=label&q=Norberto%20Needles">Noberto</a> really wants help upgrading their account!</li>
+        <li><a href="https://pt.kyletan.me/?search_by=company_size&q=Large">Customers representing large companies</a> may benefit from more proactive product training.</li>
+        <li>Indeed, tickets with the title <a href="https://pt.kyletan.me/?search_by=label&q=How%20to%20do%20this?">"How to do this?"</a> tend to be large customers (large customer nodes are colored black).</li>
+      </ul>
+      <hr>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
     </section>
     <script>
       const ontology = {{ ontology|tojson }};
