@@ -21,7 +21,6 @@ const describe = (evt) => {
       row += data[k];
     }
     row += "</td></tr>";
-    console.log(row);
     tbl.innerHTML += row;
   });
 };
